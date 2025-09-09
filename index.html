@@ -13,53 +13,55 @@
   <link rel="icon" href="assets/favicon.png"><!-- TODO: ajouter un favicon 32x32 -->
   <style>
     :root{
-      --bg:#fafbff;
-      --card:#ffffff;
-      --muted:#5b6474;
-      --text:#0f172a;
-      --brand:#2563eb; /* bleu vif accessible */
-      --brand-2:#16a34a; /* vert accent */
-      --radius:18px;
-      --shadow:0 10px 25px rgba(2,8,23,.08);
-      --border:#e6eaf3;
+      /* Palette pro orientée banque/finance */
+      --bg:#f7f9fc;            /* fond clair sérieux */
+      --card:#ffffff;           /* cartes blanches */
+      --muted:#475569;          /* texte secondaire gris ardoise */
+      --text:#0b1220;           /* texte principal bleu nuit */
+      --brand:#1e3a8a;          /* indigo (banque) */
+      --brand-2:#059669;        /* vert (performance/validation) */
+      --radius:14px;
+      --shadow:0 10px 25px rgba(2,8,23,.06);
+      --border:#e5e7eb;
     }
     /* Thème sombre optionnel */
     :root[data-theme="dark"]{
-      --bg:#0b0f19;
-      --card:#12182a;
-      --muted:#93a0b2;
-      --text:#e7ecf3;
+      --bg:#0b1220;
+      --card:#0f172a;
+      --muted:#94a3b8;
+      --text:#e2e8f0;
       --brand:#60a5fa;
       --brand-2:#34d399;
       --shadow:0 10px 25px rgba(0,0,0,.25);
-      --border:rgba(255,255,255,.1);
+      --border:rgba(255,255,255,.12);
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;line-height:1.55}
     a{color:var(--brand);text-decoration:none}
     a:hover{text-decoration:underline}
     .container{max-width:1100px;margin:0 auto;padding:24px}
-    header{position:sticky;top:0;background:rgba(255,255,255,.8);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--border);z-index:50}
-    :root[data-theme="dark"] header{background:linear-gradient(180deg,rgba(11,15,25,.95),rgba(11,15,25,.75))}
+    header{position:sticky;top:0;background:rgba(255,255,255,.85);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--border);z-index:50}
+    :root[data-theme="dark"] header{background:linear-gradient(180deg,rgba(11,18,32,.95),rgba(11,18,32,.78))}
     .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
     .brand{font-weight:800;letter-spacing:.3px}
     .brand small{display:block;color:var(--muted);font-weight:600}
     .menu{display:flex;gap:18px;flex-wrap:wrap}
     .menu a{color:var(--text);opacity:.9}
     .header-actions{display:flex;align-items:center;gap:10px}
-    .btn{display:inline-block;padding:10px 16px;border-radius:999px;background:linear-gradient(180deg,#e6efff,#cfe2ff);color:#0c1424;font-weight:700;border:1px solid var(--border);box-shadow:var(--shadow)}
-    .btn.secondary{background:#f1f5f9;color:#0f172a}
-    .btn.ghost{background:transparent;border:1px solid var(--border)}
+    .btn{display:inline-block;padding:10px 16px;border-radius:999px;background:var(--brand);color:#ffffff;font-weight:700;border:1px solid transparent;box-shadow:var(--shadow)}
+    .btn:hover{filter:brightness(.95)}
+    .btn.secondary{background:#eef2f7;color:var(--text);border:1px solid var(--border)}
+    .btn.ghost{background:transparent;border:1px solid var(--border);color:var(--text)}
     .btn.toggle{width:42px;height:42px;display:inline-flex;align-items:center;justify-content:center;padding:0;font-size:18px}
     .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;padding:42px 0;position:relative}
-    .hero::after{content:"";position:absolute;right:-80px;top:-60px;width:420px;height:420px;background:radial-gradient(closest-side,rgba(37,99,235,.15),transparent 70%);filter:blur(2px);pointer-events:none}
-    .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:#eef2ff;border:1px solid var(--border);color:#334155;font-weight:600}
+    .hero::after{content:"";position:absolute;right:-80px;top:-60px;width:420px;height:420px;background:radial-gradient(closest-side,rgba(30,58,138,.12),transparent 70%);filter:blur(2px);pointer-events:none}
+    .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:#eef2ff;border:1px solid #d9e0ff;color:#1e293b;font-weight:700}
     h1{font-size:clamp(28px,4vw,44px);margin:12px 0 6px}
     h2{font-size:clamp(22px,3vw,28px);margin:8px 0 16px}
     p.lead{font-size:18px;color:#334155}
-    .hero-card{background:linear-gradient(180deg,#ffffff,#f6fbff);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+    .hero-card{background:linear-gradient(180deg,#ffffff,#f8fafc);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
     .stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-    .chip{padding:6px 10px;border-radius:999px;background:#eef2f7;border:1px solid var(--border);color:#0f172a;font-weight:600}
+    .chip{padding:6px 10px;border-radius:999px;background:#f2f5f9;border:1px solid var(--border);color:#0b1220;font-weight:600}
     section{padding:36px 0}
     .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
     .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
@@ -97,9 +99,9 @@
     <!-- HERO -->
     <section class="hero" id="about">
       <div>
-        <span class="badge">💡 Expert financier orienté data</span>
+        <span class="badge">🏦 Financial Data Scientist — Banque & Risque</span>
         <h1>Je transforme les données en décisions : <em>dashboards</em> qui pilotent la performance & modèles qui quantifient le risque.</h1>
-        <p class="lead">Double culture <strong>Finance</strong> (audit, compta, contrôle) & <strong>Data</strong> (Python · SQL · Power BI). Analyses reproductibles, KPI actionnables et outils pour décideurs non techniques.</p>
+        <p class="lead">Double culture <strong>Finance</strong> (banque/assurance, contrôle de gestion, audit) & <strong>Data</strong> (Python · SQL · Power BI). Focalisé sur KPI financiers, <strong>risque de crédit & fraude</strong>, et tableaux de bord exécutifs prêts décision.</p>
         <div class="cta">
           <!-- Remplacez assets/cv.pdf par le chemin réel de votre CV -->
           <a class="btn" href="assets/cv.pdf" target="_blank" rel="noopener">⬇︎ Télécharger le CV (PDF)</a>

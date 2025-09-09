@@ -1,6 +1,4 @@
-title: "DANY CEDRICK MANFO NODEM"
-logo: img/nny.jpg
-description: "Portfolio Data Scientist"
-show_downloads: true
-theme: jekyll_theme_minimal
-lang: fr
+title: "Dany Manfo — Financial Data Scientist"
+url: "https://danycedr.github.io"
+theme: minima
+plugins: [jekyll-seo-tag, jekyll-sitemap]

@@ -56,10 +56,10 @@
     .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;padding:42px 0;position:relative}
     .hero::after{content:"";position:absolute;right:-80px;top:-60px;width:420px;height:420px;background:radial-gradient(closest-side,rgba(22,163,74,.12),transparent 70%);filter:blur(2px);pointer-events:none}
     .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:#e8fff2;border:1px solid #bbf7d0;color:#065f46;font-weight:700}
-    h1{font-size:clamp(20px,2.8vw,30px);margin:12px 0 6px;line-height:1.22}
+    h1{font-size:clamp(18px,2.2vw,26px);margin:10px 0 4px;line-height:1.18;font-weight:800}
     h2{font-size:clamp(22px,3vw,28px);margin:8px 0 16px;position:relative}
     h2::after{content:"";display:block;width:48px;height:3px;background:var(--brand-2);border-radius:2px;margin-top:8px}
-    p.lead{font-size:clamp(15px,1.6vw,17px);color:#334155}
+    p.lead{font-size:clamp(14px,1.4vw,16px);color:#334155}
     .hero-card{background:linear-gradient(180deg,#ffffff,#f8fafc);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
     .stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
     .chip{padding:6px 10px;border-radius:999px;background:#f2fbf6;border:1px solid #c7f1da;color:#064e3b;font-weight:600}
@@ -85,6 +85,8 @@
     .expertise-list{list-style:none;padding-left:0;display:grid;gap:10px;margin:0}
     .expertise-list li{display:flex;gap:10px;align-items:flex-start}
     .expertise-list .icon{width:18px;height:18px;color:var(--brand-2);margin-top:4px;flex-shrink:0}
+    .btn.sm{padding:8px 14px;font-size:14px}
+    .chip{font-size:13px;padding:5px 10px}
     </style>
 </head>
 <body>
@@ -114,12 +116,11 @@
         <span class="badge">🏦 Financial Data Scientist — Banque & Risque</span>
         <h1>Des données aux décisions&nbsp;: tableaux de bord qui pilotent la performance,<br>modèles qui <strong>quantifient</strong> le risque.</h1>
         <div class="cta">
-          <!-- Remplacez assets/cv.pdf par le chemin réel de votre CV -->
-          <a class="btn" href="assets/cv.pdf" target="_blank" rel="noopener">⬇︎ Télécharger le CV (PDF)</a>
-          <a class="btn secondary" href="mailto:danynodem1990@gmail.com">✉︎ Me contacter</a>
+          <a class="btn sm" href="assets/cv.pdf" target="_blank" rel="noopener">⬇︎ Télécharger le CV (PDF)</a>
+          <a class="btn sm secondary" href="mailto:danynodem1990@gmail.com">✉︎ Me contacter</a>
         </div>
         <div class="stack">
-          <span class="chip">Python</span><span class="chip">SQL</span><span class="chip">Power BI/DAX</span><span class="chip">Excel/Power Query</span><span class="chip">R</span><span class="chip">MongoDB</span>
+          <span class="chip">Python</span><span class="chip">SQL</span><span class="chip">Power BI</span><span class="chip">Excel/Power Query</span><span class="chip">R</span><span class="chip">MongoDB</span>
         </div>
       </div>
       

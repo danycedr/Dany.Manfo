@@ -77,9 +77,14 @@
     footer{border-top:1px solid var(--border);padding:24px 0;color:var(--muted)}
     @media (max-width:900px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}}
     @media (max-width:620px){.menu{display:none}.grid{grid-template-columns:1fr}}
+  .bg-overlay{position:relative;z-index:1}
+    #bgfx{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
+    header, main, footer{position:relative;z-index:1}
   </style>
 </head>
 <body>
+  <!-- Canvas de fond animé (désactivé si prefers-reduced-motion) -->
+  <canvas id="bgfx" aria-hidden="true"></canvas>
   <header>
     <div class="container nav">
       <div class="brand">Dany Manfo <small>Financial Data Scientist</small></div>
@@ -284,6 +289,111 @@
       if(isDark){root.removeAttribute('data-theme'); localStorage.setItem('theme','light'); btn.textContent='☀️';}
       else {root.setAttribute('data-theme','dark'); localStorage.setItem('theme','dark'); btn.textContent='🌙';}
     });
+    // --- Fond animé type "particles network" ---
+    (function(){
+      const canvas = document.getElementById('bgfx');
+      if(!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const root = document.documentElement;
+      const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let W = canvas.width = window.innerWidth;
+      let H = canvas.height = window.innerHeight;
+
+      // Palette depuis CSS vars (vert & indigo)
+      function colors(){
+        const cs = getComputedStyle(root);
+        return {
+          dot: cs.getPropertyValue('--brand-2').trim() || '#16a34a',
+          line: cs.getPropertyValue('--brand').trim()   || '#1e3a8a'
+        };
+      }
+      let palette = colors();
+
+      // Densité (ajuste pour +/− de particules)
+      const density = Math.max(18, Math.min(70, Math.floor((W*H)/35000)));
+      const speed = 0.25; // pixels/frame
+      const range = 110;  // distance de liaison
+
+      let pts = [];
+      function spawn(){
+        pts = Array.from({length: density}, () => ({
+          x: Math.random()*W,
+          y: Math.random()*H,
+          vx: (Math.random()*2-1)*speed,
+          vy: (Math.random()*2-1)*speed,
+          r: 1.6 + Math.random()*0.8
+        }));
+      }
+
+      function resize(){
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+        spawn();
+      }
+
+      function step(){
+        ctx.clearRect(0,0,W,H);
+        const {dot, line} = palette;
+        // Dessin des lignes (d'abord pour alpha cumulatif propre)
+        for(let i=0;i<pts.length;i++){
+          for(let j=i+1;j<pts.length;j++){
+            const dx = pts[i].x - pts[j].x;
+            const dy = pts[i].y - pts[j].y;
+            const d2 = dx*dx + dy*dy;
+            if(d2 < range*range){
+              const a = 1 - Math.sqrt(d2)/range; // alpha selon distance
+              ctx.beginPath();
+              ctx.moveTo(pts[i].x, pts[i].y);
+              ctx.lineTo(pts[j].x, pts[j].y);
+              ctx.strokeStyle = hexToRgba(line, Math.max(0.06, a*0.12));
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+        }
+        // Points
+        for(const p of pts){
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+          ctx.fillStyle = hexToRgba(dot, 0.85);
+          ctx.fill();
+          p.x += p.vx; p.y += p.vy;
+          if(p.x<0||p.x>W) p.vx*=-1;
+          if(p.y<0||p.y>H) p.vy*=-1;
+        }
+      }
+
+      function hexToRgba(hex, a){
+        // accepte var rgb/hex; fallback vert
+        if(hex.startsWith('rgb')){ return hex.replace('rgb', 'rgba').replace(')', `, ${a})`); }
+        const m = hex.replace('#','');
+        const bigint = parseInt(m.length===3? m.split('').map(c=>c+c).join(''):m,16);
+        const r = (bigint>>16)&255, g=(bigint>>8)&255, b=bigint&255;
+        return `rgba(${r},${g},${b},${a})`;
+      }
+
+      let rafId; let running=false;
+      function loop(){
+        step();
+        rafId = requestAnimationFrame(loop);
+      }
+
+      function start(){ if(!running){ running=true; rafId=requestAnimationFrame(loop);} }
+      function stop(){ running=false; cancelAnimationFrame(rafId); }
+
+      // Pause quand onglet caché + respect réduction animations
+      document.addEventListener('visibilitychange', ()=>{
+        if(document.hidden) stop(); else if(!prefersReduce) start();
+      });
+
+      // Recompute palette à chaque toggle de thème
+      const btn = document.getElementById('themeToggle');
+      btn?.addEventListener('click', ()=>{ palette = colors(); });
+
+      window.addEventListener('resize', resize);
+      spawn();
+      if(!prefersReduce) start();
+    })();
   </script>
 </body>
 </html>

@@ -108,6 +108,8 @@
     .menu a.active{color:var(--brand-2)}
     .menu a.active::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--brand-2);border-radius:2px}
     section{scroll-margin-top:80px}
+    .br-xl{display:none}
+    @media (max-width:1024px){.br-xl{display:inline}}
     </style>
 </head>
 <body>
@@ -136,7 +138,7 @@
     <section class="hero" id="about">
       <div>
         <span class="badge">🏦 Financial Data Scientist — Banque & Risque</span>
-        <h1>Des données aux décisions&nbsp;: tableaux de bord qui pilotent la performance,<br>modèles qui <strong>quantifient</strong> le risque.</h1>
+        <h1>Des données aux décisions&nbsp;: tableaux de bord qui pilotent la performance,<br class="br-xl">modèles qui <strong>quantifient</strong> le risque.</h1>
         <div class="cta">
           <a class="btn sm" href="assets/cv.pdf" target="_blank" rel="noopener">⬇︎ Télécharger le CV (PDF)</a>
           <a class="btn sm secondary" href="mailto:danynodem1990@gmail.com">✉︎ Me contacter</a>

@@ -80,7 +80,12 @@
   .bg-overlay{position:relative;z-index:1}
     #bgfx{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
     header, main, footer{position:relative;z-index:1}
-  </style>
+  .expertise-list{list-style:none;padding-left:0;display:grid;gap:10px;margin:0}
+    .expertise-list li{padding-left:0}
+    .expertise-list{list-style:none;padding-left:0;display:grid;gap:10px;margin:0}
+    .expertise-list li{display:flex;gap:10px;align-items:flex-start}
+    .expertise-list .icon{width:18px;height:18px;color:var(--brand-2);margin-top:4px;flex-shrink:0}
+    </style>
 </head>
 <body>
   <!-- Canvas de fond animé (désactivé si prefers-reduced-motion) -->
@@ -117,27 +122,20 @@
           <span class="chip">Python</span><span class="chip">SQL</span><span class="chip">Power BI/DAX</span><span class="chip">Excel/Power Query</span><span class="chip">R</span><span class="chip">MongoDB</span>
         </div>
       </div>
-      <div class="hero-card">
-        <h2>Compétences clés</h2>
-        <div class="two-col">
-          <ul>
-            <li>Modélisation sémantique Power BI/DAX</li>
-            <li>EDA, features, régression/logit, RF, XGBoost</li>
-            <li>Évaluation AUC/F1, calibration de seuils</li>
-          </ul>
-          <ul>
-            <li>SQL · pandas · scikit-learn</li>
-            <li>Contrôle de gestion, P&L, budgets</li>
-            <li>Notions MongoDB & graphes (UNamur)</li>
-          </ul>
-        </div>
+      
       </div>
     </section>
 
     <!-- SKILLS -->
     <section id="skills">
       <h2>🧭 Expertises</h2>
-      <p class="muted">Analytics & BI · Data Science (Finance/Risque) · Data & Ops · Contexte métier · NoSQL/Graph</p>
+      <ul class="expertise-list">
+        <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="10" width="3" height="10" rx="1" fill="currentColor"/><rect x="10" y="6" width="3" height="14" rx="1" fill="currentColor"/><rect x="17" y="3" width="3" height="17" rx="1" fill="currentColor"/></svg><span><strong>Finance → Data</strong> : clôtures & contrôle de gestion (P&L, marges, budgets) transformés en <strong>KPI actionnables</strong>.</span></li>
+        <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z" fill="currentColor"/></svg><span><strong>Risk analytics (banque)</strong> : scoring crédit & détection de fraude (logit, RF, XGBoost), AUC/F1, calibration des seuils, classes déséquilibrées.</span></li>
+        <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>BI & décision</strong> : Power BI + Excel/Power Query — <strong>dashboards exécutifs</strong>, <strong>exports PDF prêts à la lecture</strong>.</span></li>
+        <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 17l-4-5 4-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 7l4 5-4 5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 5l-2 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Pipelines data</strong> : Python (pandas, scikit-learn) & SQL — ETL reproductibles, data quality, versioning Git.</span></li>
+        <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 00-7 7c0 2.2 1 3.7 2.1 4.8.6.6.9 1.4.9 2.2V18h8v-2.9c0-.8.3-1.6.9-2.2A7 7 0 0012 2zM10 21h4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Storytelling métier</strong> : traduction des besoins finance en livrables clairs pour décideurs non-tech.</span></li>
+      </ul>
     </section>
 
     <!-- PROJECTS -->
@@ -251,11 +249,7 @@
           </ul>
           <p><a class="btn" href="assets/cv.pdf" target="_blank" rel="noopener">Télécharger le CV (PDF)</a></p>
         </div>
-        <div class="card">
-          <h3>Compétences principales</h3>
-          <p>Python (pandas, scikit-learn, XGBoost) · R (tidyverse) · SQL · Power BI/DAX · Excel/Power Query · Chart.js · Git/GitHub</p>
-          <p class="muted">+ Contexte métier : comptabilité, audit, contrôle de gestion, P&L, budgets.</p>
-        </div>
+        
       </div>
     </section>
 

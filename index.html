@@ -56,7 +56,7 @@
     .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;padding:42px 0;position:relative}
     .hero::after{content:"";position:absolute;right:-80px;top:-60px;width:420px;height:420px;background:radial-gradient(closest-side,rgba(22,163,74,.12),transparent 70%);filter:blur(2px);pointer-events:none}
     .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:#e8fff2;border:1px solid #bbf7d0;color:#065f46;font-weight:700}
-    h1{font-size:22px;margin:10px 0 4px;line-height:1.18;font-weight:800}
+    h1{font-size:20px;margin:10px 0 4px;line-height:1.18;font-weight:800}
     h2{font-size:clamp(22px,3vw,28px);margin:8px 0 16px;position:relative}
     h2::after{content:"";display:block;width:48px;height:3px;background:var(--brand-2);border-radius:2px;margin-top:8px}
     p.lead{font-size:clamp(14px,1.4vw,16px);color:#334155}
@@ -93,6 +93,15 @@
     .t-year{min-width:90px;text-align:right;font-weight:800;color:var(--brand-2)}
     .t-body{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow);flex:1}
     .t-role{font-weight:700}
+    .t-org{color:var(--muted);font-size:14px}
+    @media (max-width:620px){.timeline::before{left:72px}.t-year{min-width:72px}}
+    .timeline{position:relative;margin-top:10px}
+    .timeline::before{content:"";position:absolute;left:90px;top:0;bottom:0;width:2px;background:var(--border)}
+    .t-item{display:flex;gap:16px;align-items:flex-start;margin:14px 0}
+    .t-year{min-width:90px;text-align:right;font-weight:800;color:var(--brand-2)}
+    .t-body{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow);flex:1}
+    .t-role{font-weight:700;display:flex;align-items:center;gap:8px}
+    .t-ico{width:16px;height:16px;color:var(--brand-2);flex-shrink:0}
     .t-org{color:var(--muted);font-size:14px}
     @media (max-width:620px){.timeline::before{left:72px}.t-year{min-width:72px}}
     </style>
@@ -244,55 +253,61 @@
     </section>
 
     <!-- CV / Education quick overview -->
-    <section id="cv">
-      <h2>🎓 Parcours</h2>
+    <section id="experience">
+      <h2>💼 Expérience</h2>
       <div class="timeline">
-        <div class="t-item">
-          <div class="t-year">2024–2026</div>
-          <div class="t-body">
-            <div class="t-role">Executive Master in Data Science</div>
-            <div class="t-org">Université de Namur</div>
-          </div>
-        </div>
-        <div class="t-item">
-          <div class="t-year">2023–2024</div>
-          <div class="t-body">
-            <div class="t-role">MSc Gestion des risques financiers</div>
-            <div class="t-org">HEC Liège</div>
-          </div>
-        </div>
-        <div class="t-item">
-          <div class="t-year">2023–2024</div>
-          <div class="t-body">
-            <div class="t-role">Certificat universitaire Junior Data Analyst</div>
-            <div class="t-org">UCLouvain</div>
-          </div>
-        </div>
-        <div class="t-item">
-          <div class="t-year">2020–2021</div>
-          <div class="t-body">
-            <div class="t-role">MBA Ingénierie financière & économique</div>
-            <div class="t-org">IPHE Bruxelles</div>
-          </div>
-        </div>
         <div class="t-item">
           <div class="t-year">2019–2020</div>
           <div class="t-body">
-            <div class="t-role">Comptable</div>
+            <div class="t-role"><svg class="t-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4h4a2 2 0 012 2v2h3a1 1 0 011 1v9a2 2 0 01-2 2H6a2 2 0 01-2-2V9a1 1 0 011-1h3V6a2 2 0 012-2zm0 2v2h4V6h-4z" fill="currentColor"/></svg>Comptable</div>
             <div class="t-org">ANOUSERG · STAR PRESSING</div>
           </div>
         </div>
         <div class="t-item">
           <div class="t-year">2016–2019</div>
           <div class="t-body">
-            <div class="t-role">Auditeur comptable & financier (stagiaire)</div>
+            <div class="t-role"><svg class="t-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4h4a2 2 0 012 2v2h3a1 1 0 011 1v9a2 2 0 01-2 2H6a2 2 0 01-2-2V9a1 1 0 011-1h3V6a2 2 0 012-2zm0 2v2h4V6h-4z" fill="currentColor"/></svg>Auditeur comptable & financier (stagiaire)</div>
             <div class="t-org">SIMS International</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <h2>🎓 Formation</h2>
+      <div class="timeline">
+        <div class="t-item">
+          <div class="t-year">2024–2026</div>
+          <div class="t-body">
+            <div class="t-role"><svg class="t-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 5-10 5-10-5 10-5zm0 12l6-3v4a2 2 0 01-6 0v-1z" fill="currentColor"/></svg>Executive Master in Data Science</div>
+            <div class="t-org">Université de Namur</div>
+          </div>
+        </div>
+        <div class="t-item">
+          <div class="t-year">2023–2024</div>
+          <div class="t-body">
+            <div class="t-role"><svg class="t-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 5-10 5-10-5 10-5zm0 12l6-3v4a2 2 0 01-6 0v-1z" fill="currentColor"/></svg>MSc Gestion des risques financiers</div>
+            <div class="t-org">HEC Liège</div>
+          </div>
+        </div>
+        <div class="t-item">
+          <div class="t-year">2023–2024</div>
+          <div class="t-body">
+            <div class="t-role"><svg class="t-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 5-10 5-10-5 10-5zm0 12l6-3v4a2 2 0 01-6 0v-1z" fill="currentColor"/></svg>Certificat universitaire Junior Data Analyst</div>
+            <div class="t-org">UCLouvain</div>
+          </div>
+        </div>
+        <div class="t-item">
+          <div class="t-year">2020–2021</div>
+          <div class="t-body">
+            <div class="t-role"><svg class="t-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 5-10 5-10-5 10-5zm0 12l6-3v4a2 2 0 01-6 0v-1z" fill="currentColor"/></svg>MBA Ingénierie financière & économique</div>
+            <div class="t-org">IPHE Bruxelles</div>
           </div>
         </div>
         <div class="t-item">
           <div class="t-year">2016–2018</div>
           <div class="t-body">
-            <div class="t-role">Master II Comptabilité, Contrôle & Audit (CCA)</div>
+            <div class="t-role"><svg class="t-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 5-10 5-10-5 10-5zm0 12l6-3v4a2 2 0 01-6 0v-1z" fill="currentColor"/></svg>Master II Comptabilité, Contrôle & Audit (CCA)</div>
             <div class="t-org">ESCG</div>
           </div>
         </div>

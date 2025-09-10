@@ -114,6 +114,32 @@
     .h1-line{display:block}
     @media (min-width:1024px){.h1-line{white-space:nowrap}}
     @media (min-width:1100px){.hero{grid-template-columns:1.25fr .75fr}}
+    /* Hero title – air & maxime 2 lignes */
+    .hero h1{max-width:60ch; line-height:1.42; letter-spacing:.1px}
+
+    /* CTA premium */
+    .btn{box-shadow:0 6px 20px rgba(2,8,23,.08)}
+    .btn.secondary{background:#f5f7fa}
+
+    /* Chips tech plus nettes */
+    .chip{padding:4px 10px; font-size:13px; color:#0b1220; border-color:#dfe6ee}
+
+    /* Cartes projets – constance & hover pro */
+    .card img{height:180px; object-fit:cover}
+    .card{transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease}
+    .card:hover{transform:translateY(-2px); box-shadow:0 14px 30px rgba(2,8,23,.08); border-color:#cfe7d8}
+
+    /* Timelines – axe & rôle plus visibles */
+    .timeline::before{background:linear-gradient(#dce6ef,#cbead7)}
+    .t-year{color:#0b7a49; font-weight:800}
+    .t-role{font-weight:700}
+
+    /* Expertises – micro alignements */
+    .expertise-list{gap:12px}
+    .expertise-list .icon{margin-top:2px}
+
+    /* Accessibilité – focus clavier */
+    a:focus-visible, .btn:focus-visible{outline:3px solid #16a34a33; outline-offset:2px; border-radius:10px}
     </style>
 </head>
 <body>

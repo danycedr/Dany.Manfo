@@ -104,6 +104,10 @@
     .t-ico{width:16px;height:16px;color:var(--brand-2);flex-shrink:0}
     .t-org{color:var(--muted);font-size:14px}
     @media (max-width:620px){.timeline::before{left:72px}.t-year{min-width:72px}}
+    .menu a{position:relative}
+    .menu a.active{color:var(--brand-2)}
+    .menu a.active::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--brand-2);border-radius:2px}
+    section{scroll-margin-top:80px}
     </style>
 </head>
 <body>
@@ -116,7 +120,8 @@
         <a href="#about">À propos</a>
         <a href="#skills">Expertises</a>
         <a href="#projects">Projets</a>
-        <a href="#cv">CV</a>
+        <a href="#experience">Expérience</a>
+        <a href="#education">Formation</a>
         <a href="#contact">Contact</a>
       </nav>
       <div class="header-actions">
@@ -345,17 +350,32 @@
       if(isDark){root.removeAttribute('data-theme'); localStorage.setItem('theme','light'); btn.textContent='☀️';}
       else {root.setAttribute('data-theme','dark'); localStorage.setItem('theme','dark'); btn.textContent='🌙';}
     });
+
+    // Mise en évidence du lien actif selon la section visible
+    const sections = ['about','skills','projects','experience','education','contact']
+      .map(id=>document.getElementById(id)).filter(Boolean);
+    const navLinks = Array.from(document.querySelectorAll('.menu a'));
+    const linkById = Object.fromEntries(navLinks.map(a=>[a.getAttribute('href').replace('#',''), a]));
+
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          const id = e.target.id;
+          navLinks.forEach(a=>a.classList.toggle('active', a===linkById[id]));
+        }
+      })
+    },{rootMargin:'-40% 0px -50% 0px', threshold:0.01});
+    sections.forEach(sec=>io.observe(sec));
+
     // --- Fond animé type "particles network" ---
     (function(){
       const canvas = document.getElementById('bgfx');
       if(!canvas) return;
       const ctx = canvas.getContext('2d');
-      const root = document.documentElement;
       const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       let W = canvas.width = window.innerWidth;
       let H = canvas.height = window.innerHeight;
 
-      // Palette depuis CSS vars (vert & indigo)
       function colors(){
         const cs = getComputedStyle(root);
         return {
@@ -365,12 +385,11 @@
       }
       let palette = colors();
 
-      // Densité (ajuste pour +/− de particules)
       const density = Math.max(18, Math.min(70, Math.floor((W*H)/35000)));
       const speed = 0.25; // pixels/frame
       const range = 110;  // distance de liaison
-
       let pts = [];
+
       function spawn(){
         pts = Array.from({length: density}, () => ({
           x: Math.random()*W,
@@ -380,24 +399,28 @@
           r: 1.6 + Math.random()*0.8
         }));
       }
-
       function resize(){
         W = canvas.width = window.innerWidth;
         H = canvas.height = window.innerHeight;
         spawn();
       }
-
+      function hexToRgba(hex, a){
+        if(hex.startsWith('rgb')){ return hex.replace('rgb', 'rgba').replace(')', `, ${a})`); }
+        const m = hex.replace('#','');
+        const bigint = parseInt(m.length===3? m.split('').map(c=>c+c).join(''):m,16);
+        const r = (bigint>>16)&255, g=(bigint>>8)&255, b=bigint&255;
+        return `rgba(${r},${g},${b},${a})`;
+      }
       function step(){
         ctx.clearRect(0,0,W,H);
         const {dot, line} = palette;
-        // Dessin des lignes (d'abord pour alpha cumulatif propre)
         for(let i=0;i<pts.length;i++){
           for(let j=i+1;j<pts.length;j++){
             const dx = pts[i].x - pts[j].x;
             const dy = pts[i].y - pts[j].y;
             const d2 = dx*dx + dy*dy;
             if(d2 < range*range){
-              const a = 1 - Math.sqrt(d2)/range; // alpha selon distance
+              const a = 1 - Math.sqrt(d2)/range;
               ctx.beginPath();
               ctx.moveTo(pts[i].x, pts[i].y);
               ctx.lineTo(pts[j].x, pts[j].y);
@@ -407,7 +430,6 @@
             }
           }
         }
-        // Points
         for(const p of pts){
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
@@ -418,34 +440,14 @@
           if(p.y<0||p.y>H) p.vy*=-1;
         }
       }
-
-      function hexToRgba(hex, a){
-        // accepte var rgb/hex; fallback vert
-        if(hex.startsWith('rgb')){ return hex.replace('rgb', 'rgba').replace(')', `, ${a})`); }
-        const m = hex.replace('#','');
-        const bigint = parseInt(m.length===3? m.split('').map(c=>c+c).join(''):m,16);
-        const r = (bigint>>16)&255, g=(bigint>>8)&255, b=bigint&255;
-        return `rgba(${r},${g},${b},${a})`;
-      }
-
       let rafId; let running=false;
-      function loop(){
-        step();
-        rafId = requestAnimationFrame(loop);
-      }
-
+      function loop(){ step(); rafId = requestAnimationFrame(loop); }
       function start(){ if(!running){ running=true; rafId=requestAnimationFrame(loop);} }
       function stop(){ running=false; cancelAnimationFrame(rafId); }
 
-      // Pause quand onglet caché + respect réduction animations
-      document.addEventListener('visibilitychange', ()=>{
-        if(document.hidden) stop(); else if(!prefersReduce) start();
-      });
-
-      // Recompute palette à chaque toggle de thème
-      const btn = document.getElementById('themeToggle');
-      btn?.addEventListener('click', ()=>{ palette = colors(); });
-
+      document.addEventListener('visibilitychange', ()=>{ if(document.hidden) stop(); else if(!prefersReduce) start(); });
+      const toggle = document.getElementById('themeToggle');
+      toggle?.addEventListener('click', ()=>{ palette = colors(); });
       window.addEventListener('resize', resize);
       spawn();
       if(!prefersReduce) start();
